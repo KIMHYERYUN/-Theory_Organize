@@ -1,0 +1,11 @@
+<program> : 시간 순서 이벤트
+
+
+refactoring : 코드 개선(비효율적 제거, 중복, 대체 등)  - this 이용
+
+library : 내가 사용하고 있는 프로그램의 부품
+framework : 만들고자 할 때 기능(반제품)
+
+UI(User Interface) : 사용자가 사용하는 부분
+API(Application Programming Interface) : 프로그래밍할때 조작장치
+

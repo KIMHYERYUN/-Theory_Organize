@@ -1,0 +1,192 @@
+자바프로그램 + {서블릿(api) <(포함) + html 코드 출력 보완할 수 있는 jsp 도구 < + 코드정렬할 수 있는 jsp mvc < spring mvc} -> 자바 웹프로그램
+
+클라이언트 프로그램-서버 프로그램으로 주고받은게 서버프로그램만으로
+=> 웹서버
+웹이란? 데이터 구현 환경만들어줌 -페이지 요청 찾아서 보여줌(정적-미리 만들어진) -> 동적(SERVLET CONTAINER{server app-만들어내기 위한 코드 조합하여} (was - 실행 db 문서화에서 돌려줘야함)까지 데이터 요청 찾아서 제조해서 보여줌(자바스크립트)
+원격으로 클라이언트 서버에서 데이터 전달 입출력결과
+
+웹서버 - WAS -REQUEST/RESPONSE - SERVLET CONTAINER(SERVLETS...)
+
+GET : list. reg, edit. del
+server app +web server실행환경 + was(web application server) - db
+server app 조각낸 것을 server application let = servlet : list, reg, edit, del..
+웹서버 기준으로 프론트 백앤드
+브라우저 요청할 수 있는 환경 - 응답 웹서버
+GET Request - Responsew
+
+
+context
+/디렉토리화 해서 구분
+
+
+webapps ROOT>nana.txt , IT > A문서
+-> webapps 안에 ROOT>nana, ITWeb > A문서 두개의 사이트로 분리
+CONFIG - SERVER.XML에서 설정하여 하나의 관계 형성
+-> 
+<Host name ="localhost"....>
+ <CONTEXT PATH =" IT" docBase="ITWeb 폴더 경로" privileged ="true">
+it 라는 가상 웹 디렉토리에서 host name 서비스를 해라
+-> 실제 it 디렉토리 없음 
+-> localhost:8080/it/a.txt
+->localhost"8008/nana.txt
+
+
+context 명 기본변경 - /
+
+servlet 만들기(web-inf:비공개영역, 클라이언트 요청 불가, 서버에서마 사용 >webxml, classes(servlet)) -> compile
+main() 
+-> service()
+
+1.. 클래스(함수) - 함수는 메인함수처럼 실행, 클래스는 추상클래스 httpServlet extends 한것 
+함수는 service(HttpSevletRequest request, HttpSevletResponse response) throws IOException, ServletException){
+함수}
+-> 콘솔에만 출력
+2. get:url - webserver, was - url과 매핑된 sevlet 코드 찾아 실행
+web.xml
+<servlet><servlet-name><servlet-class>
+<servlet-mapping><servlet-name><url-patteren>
+<url-pattern>이 <servlet-class> 찾아 맵핑
+*class 이름 적을 시 패키지명.클래스명
+
+
+
+
+출력
+public class -- extends HttpServlet{
+public void service(HttpSERVLERequest request, HttpServletResponse response) throws IOException, ServletException{
+OutputStream os = response.getOutputStream();
+PrintStream out = new PrintStream(os, flush 옵션:true);
+out.println(""); -> 웹에서 system 과 다른건 그건 콘솔에 출력
+}}
+
+다국어일경우 Stream 보다 PrintWriter
+PrintWriter out=response.getWriter();
+
+
+
+
+-> <servlet><servlet-name><servlet-class>
+<servlet-mapping><servlet-name><url-patteren>
+<url-pattern>이 <servlet-class> 찾아 맵핑 필요가 없음
+
+-> 
+web.xml에서 metadata-complete="false" -이거외에도 어노테이션 이용한게 있으니 찾아서 사용하도록
+@WebServlet("url")
+public class extends HttpServlet{
+@Override
+protected void service(
+
+
+---브라우저에 따라 컨텐츠 형시을 알려주지 않은 경우 자의적인 해석  : ㅈ크롬(없이도 가능), 익스프롤러(html에 </br> 추가하여야 엔터)
+-한글로 인코딩 - 우측 NETWORK > Response Header content type 변경 필요 ->
+사용자에게 보낼 때 어떻게
+response.setCharacterEncodein("UTF-8");
+사용자가 받을 때 어떻게 해석
+response.setContentType("tex/html; charset=UTF-8")
+
+
+
+
+-사용자 입력을 어떻게
+
+
+
+요청하는 과정에서 이루어짐 : 요청할때 
+GET  : 
+/hello : 기본
+/hello?cnt=3 : 조건 추가 -> queryString
+int cnt = Integer.parseInt(request.getParameter("cnt")); request.get => string -> int로 변환  *string -> 각 타입 타입.parse타입(int/short/byte/long/float/double)(String 내용)
+for(int i=0; i<cnt; i++)
+out.println()
+cnt= : 빈문자열
+hello? : null
+hello : null
+
+위에 nullpointerException 발생
+->
+null 아닐때, 빈문자열 아닐때 조건 걸음
+String temp = requset.getParameter("cnt");
+int cnt= 0;(기본값)
+if(temp != null && temp.equals("")){
+ cnt = Integer.parseInt(temp);
+for(int.;;)
+
+
+
+--사용자로부터 입력을 받아 사용가능 : 입력폼 생성 필요 -WebContent 폴더 안에 html 
+<form action="url">    /url
+<div>
+<input type ="" name="cnt"/>
+<input type="submt" value="출력"/>
+
+.../url?cnt=사용자 직접 입력값
+
+
+
+
+POST : 입력할 것이 많을 경우(조건이 많은 겨우) - 요청과 제출 두 단계 나워서 처리 - url 노출 없음(보안), 큰 데이터 보낼수있다(body로 보내짐)
+검사 네트워크에서 캡쳐로 확인 가능(진행사앹)
+<form action-"url" method=post>
+<div>
+<input type ="" name="title"/>
+<input type ="" name="content"/>
+<input type="submt" value="등록"/>
+
+
+servlet 준비
+url 수정, key값인 title, content 반영 
+String title = request.getParameter("title")
+String content = request.getParameter("content")
+
+돌려주기
+out.println(title)
+out.println(content);
+
+html에서 실행-
+
+/url?title=입력값&content=입력값 노출
+
+
+한글 깨짐
+utf-8 폼 요청 -> url encoding - WAS : tomcat(iso-8859-1)-웹서버
+바ㅜ거줘야함
+1. tomcat 환경설정 : URIEncoding = "UTF-8" - 여러개 서비스 운영하기위해 잘 안바꿈 아래방법
+
+2/ servlet request.setCharacterEncoding("UTF-8")
+
+3. FILTER 사용(요청 전에도 톰캣 처음 실행시 request, response 한번씩 적용하므로 함수 2버너 이행, 그리고 이 후 요청시 계속 실행)
+-REQUEST, RESPONSE 둘다 적용
+- Servlet request/response.setCharacterEncoding("UTF-8") 대신 사용
+클래스 생성(CharacterEncoding.class), servlet Filter interface implements
+-@override 함수 구현
+{filterChain : servlet 후 넘겨줄까 말까 결정함
+chain.doFilter(request,response); 요청이 오면 흐ㅈ름을 넘기는 것  request- 필터, servlet 실행 - response  - ㄴsystem.out.prnltn('"_' 
+-web.xml :<servlet><servlet-mapping> 대신
+<filter>
+<filetr-name>characerEncodingFilter<filter-class>패키지,클래스명
+<filter-mapping>
+<filter-name>characerEncodingFilter<url-pattern>/*
+
+
+또다른 방법
+request.setCharacterEncoding("UTF-8") 
+필터 전 인코딩 적용하고 필터 적용
+chain.doFilter(request, response);
+
+
+위에 nullpointerException 발생
+->
+null 아닐때, 빈문자열 아닐때 추가
+String x_ = requset.getParameter("x");
+int x= 0;(기본값)
+if((!x_.equals("")) x= Integer.parseInt(x_ ); 사용자 값으로 대치
+
+{
+ cnt = Integer.parseInt(temp);
+for(int.;;)
+
+
+
+4.어노테이션-필터없이
+@WebServlet("/url") -> @WebFilter("/*")
+코드 작성/수정 - 컴파일 - 배포 -톰캣서버 재시작 - 브라우저요청 반복 -> ide 자동으로 진행

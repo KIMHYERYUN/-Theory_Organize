@@ -1,0 +1,46 @@
+[CSS]
+Cascading Style Sheets
+
+ID(#) > Class(.) > 태그 순서
+* Class : 묶는 역할
+* ID/Class/태그 같이 사용하여 명확한 구간 지정가능 ; #ㅇㅇㅇ tag...
+
+* 웹페이지 > 검사 > elements를 통해 실제 수정하면서 변화확인 가능
+
+<style></style>
+;으로 각 명령 수행
+<태그 내부에 style을 써도 가능 ; <body style = "속성:값; 속성:값">)
+
+
+선택자 - 속성(property)
+
+color : 색깔
+text-decoration : 
+text-align : 
+
+
+<block element vs inline element> : 화면 전체 사용 vs 자신만 사용
+단, style 지정으로 변경 가능 : display
+
+border : 굵기 solid : 색깔 / border-top/bottom/right /left: 굵기 지정 가능
+width : 폭
+   
+padding : 테두리 내부 간격
+margine : 테두리 외부 간격
+
+
+-무색, 무취의 태그 : 단지 묶고 싶을때-
+<div> : 묶음 + 줄바꿈
+<span> : 묶음 + 줄바꿈 X
+
+grid-template : 나눌 영역 선택(-columns/rows/...) 및 나열할 크기 설정(각 열의 크기 설정 가능, 자동(fr, 비율 ; 1fr, 2fr...)
+-> display : grid
+
+
+-반응형 디자인 : 화면크기에 따라 웹페이지 요소에 따라 반응
+
+@media(조건){동작코드} ; @media(min-width:000px){div{ display : none; }}
+
+
+-css 파일을 별도로 관리 - 불러와서 다운로드 후 적용
+<link rel="속성값"> + href = "링크주소" 

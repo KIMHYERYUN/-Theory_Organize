@@ -1,0 +1,136 @@
+vcs(version control system) 중 하나 : 각 저장없이 버전관리로 용량 효울, 각 로그 기록, 복제/이동/공유 용이
+-gitbash : 터미널 공유/환경제공
+   git --version : version 확인
+-git gui 프로그램 설치 : sourcetree, gitKraken등
+   ctrl+shift+p : select default program > git bash 설정
+
+CLI(Command Line Interface) : 줄 명령 입력 등
+GUI(Graphic User Interface) : 아이콘화
+
+https://git-scm.com/doc
+
+0. 기능
+--------설정 확인(edit)
+	config --list
+	config --global -e
+-------자주쓰는 운영체제 연결
+	code . (단, 사전 setting 필요)
+--------git editor 열고 terminal 활성화 상태
+	git config --global core.editor "code"
+	git config --global -e
+-------git editor 열고 terminal 비활성화 상태
+	git config --global core.editor "code --wait"
+	git config --global -e
+-------사용자의 git editor 열기
+	git config --global user.name "your name"
+	git config --global user.email "your email"
+--------윈도우(carriage-return + line feed : \r\n) - true / mac(line feed : \n) - input :  서로 혼돈없도록 자동 \n으로 업로드
+	git config --global core.autocrlf true
+	git config --global core.autocrlf input
+
+
+
+<github 만들기> - 최초설정
+1. Create a new repository > Repository name 작성 > public/private 설정 > Create repository
+2. Add file > Upload files 
+3. https://git-scm.com/download/win 설치 및 실행
+--------설정
+	git config --global user.name "your name"
+	git config --global user.email "your email"
+--------확인
+	git config --list : config 확인
+	git config user.name
+	git config user.email
+-------기본 브랜치명 변경
+	git config --global init.defaultBranch main
+-------모든 것을 저장하는 최상위 폴더 생성 -> VSCODE 열기
+	git init
+	폴더 디렉토리에서 직접 확인 .git
+-------예시)tigers.yaml, lions.yaml 파일 생성
+	team:
+	manager:
+	members:
+-------현존 폴더 git상태에서 확인
+	terminal : git status 
+-------sourcetree에 추가 : 로컬 저장소에 폴더 끌어다 놓음
+-------git 관리 배제할 폴더/파일 지정 : 필요x(자동생성, 다운로드 되는 파일-라이브러리) / 보안(비밀번호 등)
+	.gitignore 파일 생성
+	배제할 파일 추가
+
+-------git 변경사항 확인
+	git status -> 추가, 삭제, 변경 내역 확인
+	untracked : git 관리에 들어간 적 없는 파일
+	git diff -> 상세 내역 확인
+--------명령어 아래, 위, 닫기 : j(아래 스크롤), k(위 스크롤), :q(닫기)
+----git 버전관리(생성)
+--------타입캡슐에 추가
+	git add 파일명/.(모두), 등등
+	git status
+	commit : 준비상태 완료
+-------타임캡슐 묻기 : commit
+	git commit :
+	i(입력시작) + FIRST COMMIT + esc(입력종료)
+	+ 3가지 옵션 선택
+			;(콜론) +ㅍ저장없이 종료(q, q!), 저장하고 종료(wq)
+	또는 git commit -m "메시지"
+	
+	* add와 commit 동시사용 : git commit -am "메시지" : 단, untracked 파일이 없을때
+-------Reset : 과거로 돌아가고 이후 버전 삭제 vs Revert : 버전의 시간경로 변경 가능(순서)
+	Reset : 
+	git log -> commit 해시태그 복사 / 해시태그가 없는 경우 : 마지막 커밋
+	git reset --hard 해시태그
+	Revert :
+	git revert 해시태그
+	* 진행 중 수정한 내역때문에 충돌할 경우 git rm 해당파일 삭제 -> git revert --continue로 마무리 -> :wq 커밋메시지 저장
+	git revert --no-commit 해시태크 : 커밋되지 않은 상태 -> 다른 작업 추가 -> git commit -m "메시지" 커밋완료
+
+
+-------branch : 독립진행 - 복사(실배포, 테스트 서버, 신기능, 긴급 수정 등) 
+-------branch 생성
+	git branch 브랜치 명(add-branch)
+-------branch 목록확인
+	git branch
+-------branch로 이동
+	git switch 브렌치 명
+	
+	* 브랜치 생성 및 이동 : git switch -c 새로운 브랜치 명
+-------branch 삭제
+	git branch -d 브렌치명
+-------branch 이름 바꾸기
+	git branch -m 기존 브랜치명 새로운 브랜치 명
+
+-------branch 활용 : 이동 -> 파일 생성/수정 등 -> commit 새로운 파일명
+-------branch 결과 확인
+	git log -all eedecorate --oneline --graph  --> sourcetree 용이
+
+
+-------Merge : 병합하여 새로운 커밋(branch 잔재) vs Rebase : 하나하나 추가(branch 이동붙이기)
+	git switch 주 브렌치명으로 이동
+	git merge 병합할 브렌치명
+	git branch -d 병합한 브렌치
+
+-------	git switch 추가할 브랜치 명
+	giti rebase 주축이 되는 브랜치 명 - 현재 위치는 추가한 브랜치 명 위치에 있음
+	git merge 추가한 브랜치 명 - 주축이 되는 브랜치에 추가한 브랜치 명 적용이 되었음
+	git branch -d 추가한 브랜치명 - 브랜치 정리
+
+4. 업로드하고 싶은 파일의 프로그램 실행 > Terminal > code 작성
+	git init : 맨 처음에 git을 쓸 준비/초기화(initialize)
+	git add "git에 추가할 파일 또는 전체(.)"
+	git status : git 상태
+	git commit -m "history name-first/second/third commit" : git history
+	git remote add origin "https://github.com/akkias/HTML-Basics.git" : repository로 source code를 send / 원격 저장소와 연결
+	git remote -v : 연결여부 확인
+	git push -u origin master : 보내기 / 동기화
+5. github 내에 repository 확인(refresh)
+6. git update
+	git add .
+	git status
+	git commit -m "수정된 history name"
+	git push -u origin master:
+7. 5. github 내에 repository 확인(refresh)
+8. git log 확인 : commit 기록
+
+
+*버전관리 : Major(이전버전과 호환이 안되는 전체 변경된 상태) + Minor(기능추가, 변경) + Patch(미미한 에러 수정)
+*README.md:프로젝트 내용(이미지/로고), 설치방법, 코드예제, 개발환경 설정 방법, 기여방법(수정요청), 로그변경, 크레딧(도움받은 내용), License, 연락처 등을 기술

@@ -1,0 +1,25 @@
+입력폼 - 컨트롤러 - 확인
+
+폼 -> 보내야할 때 어디로/어떻게 -> 설정(form tag에 action, method)
+
+
+dto -> entity
+entity 생성
+
+@entity
+db가 해당 객체 인식할 수 있게 함
+
+@COLUMN
+DB에서 TABLE 연관할 수 있게
+
+@ID
+정확하게 구분짓기 위한 ID 생성
+@GeneratedValue
+자동 생성(auto-increment)
+
+template 설정 - 직접 만들 수 있다 -> {{layout 폴더 내 template 명}}
+
+
+
+lombok : refactoring(코드 압축) @getter, setter, constructor -> @Data 
+- logging(기록) - @Slf4j

@@ -1,0 +1,45 @@
+proxy : 서버와 클라이언트 간 메시지 통신
+forward proxy : 클라이언트-proxy-internet-서버 / 부하, 익명성
+reverse proxy : 클라이언트-internet-proxy-서버 / 부하, 보안, 로드밸런스(
+
+
+http 에서도 실시간성 보장기법 존재 / 비연결성(연결 맺고 끊으며 비용발생), 요청-응답구조(한방향)
+-polling : 지속적으로 요청
+-long polling : polling에서의 time -
+-streamng : 한번 요청을 보내고 connection 유지하여 응답 지속적으로 받음
+
+web socket : 실시간 서비스 지원(게임, 채팅, 주식거래 등) / 연결지향(한번 연결 유지), 양방향 통신
+-방법 : @Configuration class - @EnableWebSocket, WebSocketConfigurer interface 설정
+함수 : 
+1. addHandler(SocketTextHandler() : 직접 구현한 웹소켓 핸들러, path:"/websocket 연결시 핸드쉐이크할 주소 즉 웹소켓 연결주소")  : client 보낸 요청을 다루는 handler
+ - SocketTextHandler 클래스 생성(TextWebSocketHandelr / BinaryWebSocketHandelr 2가지 type)ㅊ 
+   - handleTextMessage(WebSocketSession, TextMessage) throws Exception 함수 override
+   - Set<WebSocketSession> : websocket 연결정보를 담고있는 session /collection 으로 관리하는 경우가 많음(set 등)->커넥션 연결(session.add(session) / 해제(session.remove(session))
+   - .setAllowedOrigin("*") : cor	
+   -.withSockJS() : 브라우저 미지원하는 경우 지원할 수 있게
+
+
+
+http vs web socket : 통신 내용량(비용) 감소 
+web socket : http 보다는 지원환경이 적으나 can i use 홈피 확인 -> 지원이 안되면 http에서 (SockJs, Socket.io) 라이브러리 활용 
+
+
+STOMP(Single Text Oriented Messagiing Protocol) : 메시지 브로커 활용하여 쉽게 메시지 송수신 가능
+-pub-sub(발생-구독) : 발신자가 메시지를 발행하면 그 범주에 있는 수신자가 그것을 수신하는 메시지 페러다임
+-message broker : 발신자 메시지를 받아와서 수신자들에게 메시지를 전달하는 것
+
+web socket 얻어 함께 사용할 수 있는 하위 프로토콜
+
+프레임 단위의 프로토콜 : 커맨드/헤더/바디
+
+
+방법 : @Configuration class - @EnableWebSocketMessageBroker, WebSocketMessageBrockerConfigurer interface 설정
+함수
+.enableSimpleBroker() : 내장브로커 사용(prefix가 붙은 메시지 발생시 브로커 처리하는 부분("/..."), , , )   "/queue : 1:1" "/topic : 1:n" 브로드로 캐스팅될때 
+.setApplicationDestinationPrefixes() : 메시지 핸들러로 라우팅 되는 prefix : 가공될 경우 
+  * 가공되는 메시지 핸들러 /  일반 메시지 핸들로
+   - @MessageMapping("/A") @SendTo("/B") :  A 가공 후 B   
+
+
+
+ajax는 url 안보여주므로 get으로 해도 pw 문제 없음ㅇ

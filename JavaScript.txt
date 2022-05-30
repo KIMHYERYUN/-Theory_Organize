@@ -1,0 +1,79 @@
+<JavaScript>
+상호작용하는 언어
+html 기반으로 적용
+-> 동적 변경가능 : html 웹페이지에게 동적 부여
+--> 이벤트 발생 시 action
+
+<script> 태그 안 js 작성
+document.write() - 출력
+window(웹브라우저 컨드롤, 주소, 화면크기 등)>DOM(Document Object Model)
+ajax : 웹페이지를 리로드하지않고 변경
+cookie : 사용자를 위한 개인화 서비스(리로드되도 현재상태 유지)
+offline web application : 인터넷이 끊겨도 연결할 웹
+webRTC : 화상 웹
+speech : 음성인식
+webGL : 3차원 그래픽(게임 등)
+webVR : 가상현실
+
+
+document라는 태그
+
+
+
+
+console.log() - 출력(콘솔화면에만)
+
+---JS VS HTML : 계산 가능(산술연산자 인식)/불가, 
+
+태그-속성
+<input type="형식" value="출력값" onclick="클릭시 이벤트 발생방법 및 내용">
+<input type="text" onchange="커서가 이동할 시 이벤트 발생방법 및 내용">
+...각 속성들 = 이벤트 ; onclick, onchange...
+
+이벤트 발생방법 및 내용 예시 : document.querySelector('해당태크명').style.backgroundColor=''
+document.querySelector('해당태크명') : 첫번째
+document.querySelectorall('해당태크명') : 다
+
+웹페이지 > 검사 > console > 직접 js 입력 후 실행가능  
+
+
+data type
+변수사용 - 공식사용 - 대체 가능(편리)
+연산, 비교연산 
+조건문(if, while
+배열(배열변수.push('값') - 삽입, 
+반복문
+
+
+refactoring : 코드 개선(비효율적 제거, 중복, 대체 등)  - this / 변수 등 활용
+
+
+정리
+- 객체 : 객체 내 함수 생성 등
+- 함수 활용
+
+- 파일 : 헤드부분에 <script src="파일명"></script> 로 연결 ; 웹페이지 > 검사 > 네트워크 > 적용된 파일 목록 확인
+ -> 공통파일 적용시 다운로드 1번만 해도 cache 기능으로 용량/비용/시간 절약 : 효율적
+
+
+
+<library>
+- jQuery : js 의 대표적인 라이브러리 - 다운로드( CDN 서버에서 src 통해 링크적용)
+$('태그명').css('속성', 값(매개변수이든 실제값이든))
+
+; document.querySelector('body').style.backgroundcolor = color;
+= $('body').css('backgroundColor', color);
+
+
+
+
+
+
+
+
+
+
+
+-React : 사용자 정의태그 생성(component)
+funciton 태그이름(){
+return 태그내용
